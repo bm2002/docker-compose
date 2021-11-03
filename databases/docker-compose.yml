@@ -1,0 +1,32 @@
+version: '3.9'
+volumes:
+  database_postgres:
+  database_mssql:
+services: 
+    postgres-db:
+        image:  postgres:latest
+        container_name:   postgres-db
+        ports: 
+            - 5436:5432
+        environment:
+            POSTGRES_PASSWORD: qwerty       
+        #volumes:
+            #- database_postgres:/var/lib/postgres/data
+            #- ".:/var/lib/pg_base"
+    sql-server-db:
+        image:  mcr.microsoft.com/mssql/server:2019-latest
+        #restart: always
+        container_name: sql-server-db
+        depends_on:
+            - postgres-db
+        ports: 
+            - 1498:1433
+        environment:
+            SA_PASSWORD: Barselona2010!
+            ACCEPT_EULA: Y
+        #volumes:
+            #- database_mssql:/var/lib/mssql/data
+            #- ".:/var/lib/mssql_base"
+            
+
+        
